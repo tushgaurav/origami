@@ -1,10 +1,19 @@
-import { SQL } from "bun";
+// UNSUPPORTED - https://github.com/vercel/next.js/issues/75220
 
-// File-based database
-const sql = new SQL({
-    adapter: "sqlite",
-    filename: "origami.db",
-    create: true,
-});
+// import { SQL } from "bun";
 
-export default sql;
+// const sql = new SQL({
+//     adapter: "sqlite",
+//     filename: "origami.db",
+//     create: true,
+// });
+
+// export default sql;
+
+import { drizzle } from 'drizzle-orm/libsql';
+
+const db = drizzle({ connection: {
+  url: "file:./origami.db", 
+}});
+
+export default db;
