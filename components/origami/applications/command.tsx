@@ -25,6 +25,10 @@ import {
 import { cn } from "@/lib/utils";
 import { SimpleIcon } from "@/lib/simple-icons-loader";
 
+function launchApp(url: string, target = "_blank") {
+  window.open(url, target);
+}
+
 type Application = {
     id: number;
     title: string;
@@ -42,6 +46,7 @@ type ApplicationDialogProps = {
 
 export function ApplicationDialog({ applications, className }: ApplicationDialogProps) {
   const [open, setOpen] = React.useState(false)
+  const [currentSelection, setCurrentSelection] = React.useState<any>()
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -50,6 +55,7 @@ export function ApplicationDialog({ applications, className }: ApplicationDialog
         setOpen((open) => !open)
       }
     }
+  
 
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
@@ -69,7 +75,9 @@ export function ApplicationDialog({ applications, className }: ApplicationDialog
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Suggestions">
             {applications.map((application) => (
-              <CommandItem key={application.id} value={application.title}>
+              <CommandItem key={application.id} value={application.title} onSelect={() => {
+                launchApp(application.url)
+              }}>
                 <SimpleIcon si={application.icon.split('si:')[1]} className="size-4" />
                 <span>{application.title}</span>
               </CommandItem>

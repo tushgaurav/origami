@@ -6,6 +6,8 @@ import { PlusIcon, TrashIcon } from "lucide-react";
 import { hlItems } from "@/db/schema";
 import db from "@/db";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { DeleteApplicationsDialog } from "./_components/applications/delete";
+import { AddApplicationDialog } from "./_components/applications/add";
 
 export const metadata: Metadata = {
     title: "Origami - Settings",
@@ -28,15 +30,9 @@ export default async function SettingsPage() {
 
 
                 <div className="flex gap-2 mt-2">
-                    <Button variant="default">
-                        <PlusIcon className="size-4" />
-                        <span>Add Application</span>
-                    </Button>
+                    <AddApplicationDialog />
 
-                    <Button variant="outline">
-                        <TrashIcon className="size-4" />
-                        <span>Delete All Applications</span>
-                    </Button>
+                    <DeleteApplicationsDialog />
                 </div>
             </SettingsSection>
         </Page>
