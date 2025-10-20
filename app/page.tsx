@@ -1,14 +1,13 @@
-import { Page, PageHeader } from "@/components/base/page";
+import { Page } from "@/components/base/page";
 import SearchBar from "@/components/search";
-import { CommandDialogDemo } from "@/components/command";
 import Applications from "@/components/origami/applications";
+import Welcome from "@/components/welcome";
 
 export default function Home() {
   return (
     <Page>
-      <PageHeader heading="Welcome Tushar!" />
+      <Welcome />
       <SearchBar />
-      {/* <CommandDialogDemo /> */}
 
       <Applications />
     </Page>
