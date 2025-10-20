@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "lucide-react";
 import { getLocalUrl } from "@/lib/get-local-url";
+import { ApplicationDialog } from "./command";
 
 const DESCRIPTION_DISPLAY = false;
 
@@ -14,7 +15,12 @@ export default async function Applications() {
 
     return (
         <section>
-            <h1 className="text-2xl font-bold mb-4">Applications</h1>
+            <div className="flex items-center justify-between">
+                <h1 className="text-2xl font-bold mb-4">Applications</h1>
+                <ApplicationDialog 
+                    applications={applications}
+                />
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {applications.map((application: any) => (

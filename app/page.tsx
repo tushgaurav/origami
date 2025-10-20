@@ -8,7 +8,7 @@ export default function Home() {
     <Page>
       <PageHeader heading="Welcome Tushar!" />
       <SearchBar />
-      <CommandDialogDemo />
+      {/* <CommandDialogDemo /> */}
 
       <Applications />
     </Page>
