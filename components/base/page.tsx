@@ -10,7 +10,7 @@ export function Page({ children, className }: { children: React.ReactNode, class
 
 export function PageHeader({ heading, children, className }: { heading: string, children?: React.ReactNode, className?: string }) {
     return (
-        <h1 className={cn("text-2xl font-bold", className)}>
+        <h1 className={cn("text-2xl font-bold mb-4", className)}>
             {heading}
             {children}
         </h1>

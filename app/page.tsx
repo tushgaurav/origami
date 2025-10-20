@@ -10,6 +10,7 @@ export default function Home() {
       <SearchBar />
 
       <Applications />
+
     </Page>
   );
 }
