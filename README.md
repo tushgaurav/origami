@@ -1,7 +1,9 @@
 # Origami
 
+![screenshot](/screenshot.png)
+
 A hackable, self-hosted and modern start page for your homelab—fast, minimal, and built to customize.
 
-## Motivation
+### Motivation
 
-I am deep into the homelab stuff and after neglecting having a proper landing page for my homelab, I am finally making one myself. But why make one when there are tons of similar projects? Well most of them look kind of ugly and are build on top of older technologies, so i build my own project. 
+After years of running a homelab and overlooking the value of a clean landing page, I finally set out to build my own. While there are plenty of existing projects, I wanted something modern, customizable, and visually appealing—many alternatives feel dated or lack flexibility. So I created Origami: a start page designed for today's homelabbers, focused on speed, minimalism, and easy customization.
