@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { SimpleIcon, getSimpleIcon } from "@/lib/simple-icons-loader"
 import useDebounce from "@/hooks/use-debounce"
-import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 
 function IconSearch({ value, onChange }: IconSearchProps) {
   const [query, setQuery] = useState("")
@@ -22,12 +22,12 @@ function IconSearch({ value, onChange }: IconSearchProps) {
       list.push({ key: exportKey, slug: icon.slug, title: icon.title })
     }
 
-    if (!debouncedQuery.trim()) return list.slice(0, 24)
+    if (!debouncedQuery.trim()) return list.slice(0, 12)
 
     const q = debouncedQuery.toLowerCase()
     return list
       .filter(i => i.slug.includes(q) || i.title.toLowerCase().includes(q))
-      .slice(0, 24)
+      .slice(0, 12)
   }, [debouncedQuery])
 
   const selectedSlug = useMemo(() => {
@@ -49,30 +49,27 @@ function IconSearch({ value, onChange }: IconSearchProps) {
           <FieldLabel htmlFor="app-icon">Icon</FieldLabel>
           <Input
             id="app-icon"
-            placeholder="Search icons (e.g. github, vercel, notion)"
+            placeholder="Search icons (e.g. proxmox, home assistant, pi-hole)"
             value={query}
             onChange={e => setQuery(e.target.value)}
             autoComplete="off"
           />
           <FieldDescription>
-            Choose from the Simple Icons library. Selected: {selectedValid ? selectedSlug : "none"}
+            Selected: {selectedValid ? selectedSlug : "none"}
           </FieldDescription>
         </Field>
 
-        <div className="grid grid-cols-6 gap-2">
+        <div className="flex flex-wrap gap-2">
           {options.map(opt => (
-            <button
+            <Button
               key={opt.slug}
-              type="button"
               onClick={() => handleSelect(opt.slug)}
-              className={cn(
-                "flex items-center justify-center rounded-md border p-2 transition-colors",
-                selectedSlug === opt.slug ? "border-primary bg-primary/5" : "border-transparent hover:border-border"
-              )}
               aria-label={opt.title}
+              variant={selectedSlug === opt.slug ? "secondary" : "outline"}
+              size="icon-lg"
             >
               <SimpleIcon si={opt.slug} className="size-5" title={opt.title} />
-            </button>
+            </Button>
           ))}
         </div>
       </FieldGroup>

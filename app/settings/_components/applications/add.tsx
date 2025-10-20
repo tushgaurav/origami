@@ -36,7 +36,7 @@ export function AddApplicationDialog() {
         <DialogHeader>
           <DialogTitle>Add Application</DialogTitle>
           <DialogDescription>
-            Add a new application to your collection.
+            Add a new application to Origami.
           </DialogDescription>
         </DialogHeader>
         <form action={formAction} className="grid gap-4">
@@ -44,22 +44,20 @@ export function AddApplicationDialog() {
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="title">Title</FieldLabel>
-                <Input id="title" name="title" placeholder="e.g. GitHub" required />
+                <Input id="title" name="title" placeholder="e.g. Proxmox" required />
               </Field>
               <Field>
                 <FieldLabel htmlFor="url">URL</FieldLabel>
-                <Input id="url" name="url" placeholder="https://github.com" inputMode="url" required />
-                <FieldDescription>Full URL including protocol</FieldDescription>
+                <Input id="url" name="url" placeholder="http://10.1.1.2:8006" inputMode="url" required />
               </Field>
               <Field>
                 <FieldLabel htmlFor="description">Description</FieldLabel>
-                <Textarea id="description" name="description" placeholder="Optional description" className="resize-none" />
+                <Textarea id="description" name="description" placeholder="e.g. Proxmox VE is a open source virtualization platform for managing virtual machines and containers." className="resize-none" />
+                <FieldDescription>Optional description of the application.</FieldDescription>
               </Field>
               <Field>
-                <FieldLabel>Icon</FieldLabel>
                 <input type="hidden" name="icon" value={icon} />
                 <IconSearch value={icon} onChange={setIcon} />
-                <FieldDescription>Pick an icon. We store it as si:slug</FieldDescription>
               </Field>
             </FieldGroup>
           </FieldSet>

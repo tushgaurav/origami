@@ -8,6 +8,7 @@ import db from "@/db";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { DeleteApplicationsDialog } from "./_components/applications/delete";
 import { AddApplicationDialog } from "./_components/applications/add";
+import { EditApplicationDialog } from "./_components/applications/edit";
 
 export const metadata: Metadata = {
     title: "Origami - Settings",
@@ -31,7 +32,7 @@ export default async function SettingsPage() {
 
                 <div className="flex gap-2 mt-2">
                     <AddApplicationDialog />
-
+                    <EditApplicationDialog />
                     <DeleteApplicationsDialog />
                 </div>
             </SettingsSection>
