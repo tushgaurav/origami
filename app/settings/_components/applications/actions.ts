@@ -2,10 +2,11 @@
 
 import { z } from "zod"
 import db from "@/db"
-import { hlItems } from "@/db/schema"
-import { sql } from "drizzle-orm"
+import { hlItems, user_preferences } from "@/db/schema"
+import { eq, sql } from "drizzle-orm"
 import { revalidatePath } from "next/cache"
 import type { ApplicationItem } from "./types"
+import { toast } from "sonner"
 
 const insertSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -106,3 +107,15 @@ export async function deleteAllApplications(): Promise<ActionState> {
 }
 
 
+export async function changeButtonSize(buttonSize: "full" | "small", panel: "application" | "bookmark"   ) {
+  try {
+      await db.update(user_preferences).set({
+          [panel === "application" ? "application_button_size" : "bookmark_button_size"]: buttonSize,
+      }).where(eq(user_preferences.id, 1));
+
+  } catch (error) {
+      console.error(error);
+  }
+
+  revalidatePath("/settings");
+}
