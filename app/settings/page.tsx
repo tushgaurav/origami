@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import { Page, PageHeader } from "@/components/base/page";
 import SettingsSection from "./_components/settings-section";
-import { Button } from "@/components/ui/button";
-import { PlusIcon, TrashIcon } from "lucide-react";
-import { hlItems } from "@/db/schema";
+import { hlItems, bookmarks as bookmarksTable } from "@/db/schema";
 import db from "@/db";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { DeleteApplicationsDialog } from "./_components/applications/delete";
 import { AddApplicationDialog } from "./_components/applications/add";
 import { EditApplicationDialog } from "./_components/applications/edit";
+import { DataTable } from "./_components/applications/data-table";
+import { columns } from "./_components/applications/columns";
+import type { ApplicationItem } from "./_components/applications/types";
+import { AddBookmarkDialog } from "./_components/bookmarks/add";
+import { EditBookmarksDialog } from "./_components/bookmarks/edit";
+import { DeleteBookmarksDialog } from "./_components/bookmarks/delete";
+import type { BookmarkItem } from "./_components/bookmarks/types";
 
 export const metadata: Metadata = {
     title: "Origami - Settings",
@@ -16,7 +21,8 @@ export const metadata: Metadata = {
 };
 
 export default async function SettingsPage() {
-    const applications = await db.select().from(hlItems);
+    const applications = await db.select().from(hlItems) as unknown as ApplicationItem[];
+    const bookmarkItems = await db.select().from(bookmarksTable) as unknown as BookmarkItem[];
 
     return (
         <Page>
@@ -27,13 +33,18 @@ export default async function SettingsPage() {
             </SettingsSection>
 
             <SettingsSection title="Applications">
-                You have {applications.length} applications.
-
-
-                <div className="flex gap-2 mt-2">
+                <div className="flex gap-2 mb-2">
                     <AddApplicationDialog />
-                    <EditApplicationDialog />
+                    <EditApplicationDialog applications={applications} />
                     <DeleteApplicationsDialog />
+                </div>
+            </SettingsSection>
+
+            <SettingsSection title="Bookmarks">
+                <div className="flex gap-2 mb-2">
+                    <AddBookmarkDialog />
+                    <EditBookmarksDialog bookmarks={bookmarkItems} />
+                    <DeleteBookmarksDialog />
                 </div>
             </SettingsSection>
         </Page>

@@ -2,10 +2,10 @@
 
 import { z } from "zod"
 import db from "@/db"
-import { hlItems } from "@/db/schema"
+import { bookmarks } from "@/db/schema"
 import { sql } from "drizzle-orm"
 import { revalidatePath } from "next/cache"
-import type { ApplicationItem } from "./types"
+import type { BookmarkItem } from "./types"
 
 const insertSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -17,7 +17,7 @@ const insertSchema = z.object({
     .regex(/^si:/, "Icon must be a Simple Icons slug prefixed with si:"),
 })
 
-export async function createApplication(prevState: ActionState, formData: FormData): Promise<ActionState> {
+export async function createBookmark(prevState: ActionState, formData: FormData): Promise<ActionState> {
   const raw = {
     title: String(formData.get("title") ?? ""),
     url: String(formData.get("url") ?? ""),
@@ -39,8 +39,8 @@ export async function createApplication(prevState: ActionState, formData: FormDa
 
   const { title, url, description, icon } = parsed.data
 
-  await db.insert(hlItems).values({ title, url, description, icon })
-  await db.run(sql`UPDATE hl_items SET updated_at = CURRENT_TIMESTAMP WHERE id = last_insert_rowid()`) // keep updatedAt fresh
+  await db.insert(bookmarks).values({ title, url, description, icon })
+  await db.run(sql`UPDATE bookmarks SET updated_at = CURRENT_TIMESTAMP WHERE id = last_insert_rowid()`)
 
   revalidatePath("/settings")
   return { ok: true }
@@ -52,13 +52,12 @@ interface ActionState {
   issues?: Array<{ message: string; path?: (string | number)[] }>
 }
 
-// Query + sorting
 const listSchema = z.object({
   query: z.string().optional().default(""),
   sort: z.enum(["recently-added", "recently-edited"]).optional().default("recently-edited"),
 })
 
-export async function listApplications(input?: unknown): Promise<{ ok: true; data: ApplicationItem[] } | { ok: false; error: string }> {
+export async function listBookmarks(input?: unknown): Promise<{ ok: true; data: BookmarkItem[] } | { ok: false; error: string }> {
   const parsed = listSchema.safeParse(input ?? {})
   if (!parsed.success) return { ok: false, error: "Invalid list params" }
 
@@ -72,15 +71,14 @@ export async function listApplications(input?: unknown): Promise<{ ok: true; dat
     ? sql`ORDER BY created_at DESC`
     : sql`ORDER BY updated_at DESC`
 
-  const rows = await db.all<ApplicationItem>(sql`SELECT id, title, url, description, icon, created_at AS createdAt, updated_at AS updatedAt FROM hl_items ${where} ${orderBy}`)
+  const rows = await db.all<BookmarkItem>(sql`SELECT id, title, url, description, icon, created_at AS createdAt, updated_at AS updatedAt FROM bookmarks ${where} ${orderBy}`)
 
   return { ok: true, data: rows }
 }
 
-// Delete selected IDs
 const deleteSchema = z.object({ ids: z.array(z.number().int().positive()).min(1) })
 
-export async function deleteApplications(formData: FormData): Promise<ActionState> {
+export async function deleteBookmarks(formData: FormData): Promise<ActionState> {
   const idsRaw = String(formData.get("ids") ?? "")
   const ids = idsRaw
     .split(",")
@@ -92,15 +90,15 @@ export async function deleteApplications(formData: FormData): Promise<ActionStat
 
   const idsParam = parsed.data.ids
   const list = idsParam.join(",")
-  await db.run(sql`DELETE FROM hl_items WHERE id IN (${sql.raw(list)})`)
+  await db.run(sql`DELETE FROM bookmarks WHERE id IN (${sql.raw(list)})`)
 
   revalidatePath("/settings")
 
   return { ok: true }
 }
 
-export async function deleteAllApplications(): Promise<ActionState> {
-  await db.run(sql`DELETE FROM hl_items`)
+export async function deleteAllBookmarks(): Promise<ActionState> {
+  await db.run(sql`DELETE FROM bookmarks`)
   revalidatePath("/settings")
   return { ok: true }
 }

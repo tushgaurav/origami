@@ -10,3 +10,13 @@ export const hlItems = sqliteTable("hl_items", {
 	createdAt: numeric("created_at").default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 	updatedAt: numeric("updated_at").default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 });
+
+export const bookmarks = sqliteTable("bookmarks", {
+	id: integer().primaryKey({ autoIncrement: true }),
+	title: text().notNull(),
+	url: text().notNull(),
+	description: text().notNull(),
+	icon: text().notNull(),
+	createdAt: numeric("created_at").default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+	updatedAt: numeric("updated_at").default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+});

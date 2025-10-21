@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { SearchIcon, ChevronDown } from "lucide-react"
+import { SearchIcon, ChevronDown, ChevronRightIcon } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
@@ -23,7 +23,7 @@ function SearchBar() {
   }
 
   return (
-      <form onSubmit={handleSubmit} className="w-full mb-10">
+      <form onSubmit={handleSubmit} className="w-full my-20">
         <div className="flex items-stretch gap-2">
           <div className="relative flex-1">
             <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 opacity-60">
@@ -33,13 +33,13 @@ function SearchBar() {
               id="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={`Search with ${SEARCH_ENGINES[engineKey].name}`}
-              className="h-12 md:h-14 pl-12 pr-4 text-base md:text-lg rounded-lg"
+              placeholder={`Search`}
+              className="h-12 md:h-14 pl-12 pr-4 text-base md:text-lg rounded-full"
               aria-label="Search query"
             />
           </div>
-          <Button type="submit" className="h-12 md:h-14 px-6 text-base md:text-lg" size="lg" variant="outline">
-            Search
+          <Button type="submit" className="text-sm text-muted-foreground h-12 md:h-14 rounded-full" size="lg" variant="ghost">
+            {SEARCH_ENGINES[engineKey].name} <ChevronRightIcon className="h-5 w-5" />
           </Button>
         </div>
       </form>

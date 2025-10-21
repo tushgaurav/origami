@@ -4,9 +4,10 @@ import db from "@/db";
 import { hlItems } from "@/db/schema";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowUpRightIcon } from "lucide-react";
+import { ArrowUpRightIcon, PlusIcon } from "lucide-react";
 import { getLocalUrl } from "@/lib/get-local-url";
 import { ApplicationDialog } from "./command";
+import { EmptyApplications } from "./empty";
 
 const DESCRIPTION_DISPLAY = false;
 
@@ -17,7 +18,7 @@ export default async function Applications() {
         <section>
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-bold mb-4">Applications</h1>
-                <ApplicationDialog 
+                <ApplicationDialog
                     applications={applications}
                 />
             </div>
@@ -44,7 +45,13 @@ export default async function Applications() {
                         </CardHeader>
                     </Card>
                 ))}
+
             </div>
+            
+            {applications.length === 0 && (
+                <EmptyApplications />
+            )}
+            
         </section>
     );
 }

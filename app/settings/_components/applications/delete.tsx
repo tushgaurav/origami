@@ -11,6 +11,7 @@ import {
   } from "@/components/ui/alert-dialog"
   import { Button } from "@/components/ui/button"
 import { TrashIcon } from "lucide-react"
+import { deleteAllApplications } from "./actions"
   
   export function DeleteApplicationsDialog() {
     return (
@@ -31,7 +32,9 @@ import { TrashIcon } from "lucide-react"
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
+            <form action={deleteAllApplications}>
+              <AlertDialogAction type="submit">Delete all</AlertDialogAction>
+            </form>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
