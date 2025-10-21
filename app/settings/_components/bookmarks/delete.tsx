@@ -31,7 +31,7 @@ export function DeleteBookmarksDialog() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <form action={deleteAllBookmarks}>
+          <form>
             <AlertDialogAction type="submit">Delete all</AlertDialogAction>
           </form>
         </AlertDialogFooter>

@@ -32,7 +32,7 @@ import { deleteAllApplications } from "./actions"
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <form action={deleteAllApplications}>
+            <form>
               <AlertDialogAction type="submit">Delete all</AlertDialogAction>
             </form>
           </AlertDialogFooter>
