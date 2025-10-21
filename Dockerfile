@@ -13,6 +13,8 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+RUN bunx --bun drizzle-kit push
+
 RUN bun run build
 
 FROM base AS runner
@@ -31,6 +33,8 @@ COPY --from=builder /app/public ./public
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+COPY --from=builder --chown=nextjs:nodejs /app/origami.db ./origami.db
 
 USER nextjs
 
