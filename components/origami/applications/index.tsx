@@ -12,6 +12,10 @@ import { cn } from "@/lib/utils";
 
 const DESCRIPTION_DISPLAY = false;
 
+function removeTrailingSlash(url: string) {
+    return url.replace(/\/$/, '');
+}
+
 export default async function Applications({ fullSizeButtons }: { fullSizeButtons: boolean }) {
     const applications = await db.select().from(hlItems);
 
@@ -30,14 +34,14 @@ export default async function Applications({ fullSizeButtons }: { fullSizeButton
                         <Card key={application.id}>
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-4">
-                                    <SimpleIcon si={application.icon.split('si:')[1]} className="size-10" />
-                                    <div className="flex flex-col gap-1">
-                                        <h2 className="text-lg font-medium">{application.title}</h2>
-                                        <Link href={application.url} target="_blank" className="flex items-center gap-1">
-                                            <ArrowUpRightIcon className="size-4" />
-                                            {getLocalUrl(application.url)}
-                                        </Link>
-                                    </div>
+                                        <SimpleIcon si={application.icon.split('si:')[1]} className="size-10" />
+                                        <div className="flex flex-col gap-1 text-foreground">
+                                            <h2 className="text-lg font-medium">{application.title}</h2>
+                                            <Link href={application.url} target="_blank" className="flex items-center text-sm gap-1 text-muted-foreground">
+                                                <ArrowUpRightIcon className="size-5 text-muted-foreground" />
+                                                {getLocalUrl(removeTrailingSlash(application.url))}
+                                            </Link>
+                                        </div>
                                 </CardTitle>
                                 {
                                     application.description && DESCRIPTION_DISPLAY && (

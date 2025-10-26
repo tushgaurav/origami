@@ -1,16 +1,18 @@
-import { SimpleIcon } from "@/lib/simple-icons-loader"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import db from "@/db"
-import { bookmarks } from "@/db/schema"
+import { bookmark_categories, bookmarks } from "@/db/schema"
 import Link from "next/link"
-import { ArrowUpRightIcon } from "lucide-react"
-import { getLocalUrl } from "@/lib/get-local-url"
 import { EmptyBookmarks } from "@/components/origami/bookmarks/empty"
 
-const DESCRIPTION_DISPLAY = false
-
 export default async function Bookmarks() {
-    const rows = await db.select().from(bookmarks)
+    const categories = await db.select().from(bookmark_categories).orderBy(bookmark_categories.name);
+    const bookmarks_rows = await db.select().from(bookmarks).orderBy(bookmarks.title);
+
+    const data = categories.map((category) => ({
+        ...category,
+        bookmarks: bookmarks_rows.filter((bookmark) => bookmark.category_id === category.id)
+    }));
+
+    console.log({ data })
 
     return (
         <section className="mt-12">
@@ -19,32 +21,21 @@ export default async function Bookmarks() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {rows.map((bookmark: any) => (
-                    <Card key={bookmark.id}>
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-4">
-                                <SimpleIcon si={bookmark.icon.split('si:')[1]} className="size-10" />
-                                <div className="flex flex-col gap-1">
-                                    <h2 className="text-lg font-medium">{bookmark.title}</h2>
-                                    <Link href={bookmark.url} target="_blank" className="flex items-center gap-1">
-                                        <ArrowUpRightIcon className="size-4" />
-                                        {getLocalUrl(bookmark.url)}
-                                    </Link>
-                                </div>
-                            </CardTitle>
-                            {bookmark.description && DESCRIPTION_DISPLAY && (
-                                <CardDescription>{bookmark.description}</CardDescription>
-                            )}
-                        </CardHeader>
-                    </Card>
-                ))}
+                {data.map((category) => (
+                    <div key={category.id}>
+                        <h2 className="text-lg font-bold mb-4">{category.name}</h2>
+                        <div className="flex flex-col gap-2">
+                            {category.bookmarks.map((bookmark) => (
+                                <Link href={bookmark.url} target="_blank">
+                                    {bookmark.title}
+                                </Link>
+                            ))}
 
+                        </div>
+                    </div>
+                ))}
             </div>
-            
-            {rows.length === 0 && (
-                <EmptyBookmarks />
-            )}
-            
+
         </section>
     )
 }

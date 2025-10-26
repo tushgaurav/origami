@@ -1,9 +1,8 @@
 export interface BookmarkItem {
   id: number
+  category_id: number | null
   title: string
   url: string
-  description: string
-  icon: string
   createdAt: string
   updatedAt: string
 }
@@ -11,6 +10,14 @@ export interface BookmarkItem {
 export interface BookmarksQuery {
   query?: string
   sort?: "recently-added" | "recently-edited"
+}
+
+export interface BookmarkCategoryItem {
+  id: number
+  name: string
+  description: string | null
+  createdAt: string
+  updatedAt: string
 }
 
 

@@ -19,12 +19,19 @@ export const hlItems = sqliteTable("hl_items", {
 	updatedAt: numeric("updated_at").default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 });
 
+export const bookmark_categories = sqliteTable("bookmark_categories", {
+	id: integer().primaryKey({ autoIncrement: true }),
+	name: text().notNull(),
+	description: text(),
+	createdAt: numeric("created_at").default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+	updatedAt: numeric("updated_at").default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+});
+
 export const bookmarks = sqliteTable("bookmarks", {
 	id: integer().primaryKey({ autoIncrement: true }),
+	category_id: integer().references(() => bookmark_categories.id),
 	title: text().notNull(),
 	url: text().notNull(),
-	description: text().notNull(),
-	icon: text().notNull(),
 	createdAt: numeric("created_at").default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 	updatedAt: numeric("updated_at").default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 });
