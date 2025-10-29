@@ -1,6 +1,5 @@
 FROM oven/bun:1 AS base
 WORKDIR /app
-ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS deps
 COPY package.json bun.lockb* bun.lock* ./
