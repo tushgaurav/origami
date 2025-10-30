@@ -8,20 +8,21 @@ import { Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import db from "@/db";
-import { user_preferences } from "@/db/schema";
+import { user, user_preferences } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export default async function Home() {
+  const userData = await db.select().from(user);
   const userPreferences = await db.select().from(user_preferences).where(eq(user_preferences.user_id, 1));
 
   return (
     <Page>
-      <Welcome />
+      <Welcome userName={userData?.[0]?.name.split(" ")[0]} />
       <SearchBar />
 
       <Applications
         fullSizeButtons={userPreferences?.[0]?.application_button_size === "full"}
-       />
+      />
 
       <Bookmarks />
 
