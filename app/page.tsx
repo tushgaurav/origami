@@ -10,9 +10,15 @@ import { Button } from "@/components/ui/button";
 import db from "@/db";
 import { user, user_preferences } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { redirect, RedirectType } from "next/navigation";
 
 export default async function Home() {
   const userData = await db.select().from(user);
+
+  if (userData.length === 0) {
+    redirect("/setup", RedirectType.replace);
+  }
+
   const userPreferences = await db.select().from(user_preferences).where(eq(user_preferences.user_id, 1));
 
   return (
