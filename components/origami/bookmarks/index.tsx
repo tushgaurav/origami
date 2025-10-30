@@ -1,7 +1,6 @@
 import db from "@/db"
 import { bookmark_categories, bookmarks } from "@/db/schema"
 import Link from "next/link"
-import { EmptyBookmarks } from "@/components/origami/bookmarks/empty"
 
 export default async function Bookmarks() {
     const categories = await db.select().from(bookmark_categories).orderBy(bookmark_categories.name);
@@ -12,7 +11,9 @@ export default async function Bookmarks() {
         bookmarks: bookmarks_rows.filter((bookmark) => bookmark.category_id === category.id)
     }));
 
-    console.log({ data })
+    if (data.length === 0) {
+        return null;
+    }
 
     return (
         <section className="mt-12">
