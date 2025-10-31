@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { GalleryVerticalEnd } from "lucide-react"
 
-import { SetupForm } from "@/components/origami/setup"
+import Setup from "@/components/origami/setup"
 import Image from "next/image";
 import Link from "next/link";
 import db from "@/db";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Setup your Origami",
 };
 
-export default async function Setup() {
+export default async function SetupPage() {
   const userData = await db.select().from(user);
 
   if (userData.length > 0) {
@@ -33,7 +33,7 @@ export default async function Setup() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <SetupForm />
+            <Setup />
           </div>
         </div>
       </div>
