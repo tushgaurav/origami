@@ -39,4 +39,6 @@ bun run start      # Start production server
 ```bash
 docker build -t origami .
 docker run -p 3000:3000 origami
+
+du -h -d 1 | sort -rh # List directory sizes
 ```

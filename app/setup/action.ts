@@ -24,7 +24,7 @@ export async function setup(
   } catch (error) {
     return {
       ok: false,
-      error: "Cannot access database, check if the database exists?",
+      proceed: ProceedType.NULL,
     };
   }
 
