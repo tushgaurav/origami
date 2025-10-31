@@ -67,6 +67,7 @@ function IconSearch({ value, onChange }: IconSearchProps) {
               aria-label={opt.title}
               variant={selectedSlug === opt.slug ? "secondary" : "outline"}
               size="icon-lg"
+              type="button"
             >
               <SimpleIcon si={opt.slug} className="size-5" title={opt.title} />
             </Button>
