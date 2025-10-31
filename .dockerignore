@@ -1,0 +1,12 @@
+Dockerfile
+.dockerignore
+.gitignore
+node_modules
+.next
+README.md
+CLAUDE.md
+screenshot.png
+.cursorrules
+!.next/static
+!.next/standalone
+.git
