@@ -6,6 +6,7 @@ import Bookmarks from "@/components/origami/bookmarks";
 import Link from "next/link";
 import { Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Widgets from "@/components/origami/widgets";
 
 import db from "@/db";
 import { user, user_preferences } from "@/db/schema";
@@ -25,6 +26,8 @@ export default async function Home() {
     <Page>
       <Welcome userName={userData?.[0]?.name.split(" ")[0]} />
       <SearchBar />
+
+      <Widgets/>
 
       <Applications
         fullSizeButtons={userPreferences?.[0]?.application_button_size === "full"}

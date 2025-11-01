@@ -1,0 +1,36 @@
+{
+    "widgets": [
+        {
+            "id": "widget-1",
+            "name": "Weather",
+            "size": "medium",
+            "refreshInterval": 3600,
+            "position": {
+                "x": 0,
+                "y": 0,
+                "width": 1,
+                "height": 1
+            },
+            "config": {
+                "showGraph": true
+            },
+            "enabled": true
+        },
+        {
+            "id": "system-monitor",
+            "name": "System Monitor",
+            "size": "medium",
+            "refreshInterval": 3600,
+            "position": {
+                "x": 1,
+                "y": 0,
+                "width": 1,
+                "height": 1
+            },
+            "config": {
+                "showGraph": true
+            },
+            "enabled": true
+        }
+    ]
+}
