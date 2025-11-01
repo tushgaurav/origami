@@ -61,6 +61,7 @@ export const user_preferences = sqliteTable("user_preferences", {
   application_show_description: integer().notNull().default(0),
   bookmark_button_size: text().notNull().default("full"),
   bookmark_show_description: integer().notNull().default(0),
+  show_widgets: integer().notNull().default(0),
   createdAt: numeric("created_at")
     .default(sql`(CURRENT_TIMESTAMP)`)
     .notNull(),

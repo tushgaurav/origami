@@ -17,6 +17,7 @@ import { ApplicationButtonSize } from "./_components/applications/button-size";
 import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ShowWidgets } from "./_components/general/show-widgets";
 
 export const metadata: Metadata = {
     title: "Origami - Settings",
@@ -27,7 +28,7 @@ export default async function SettingsPage() {
     const applications = await db.select().from(hlItems) as unknown as ApplicationItem[];
     const bookmarkItems = await db.select().from(bookmarksTable) as unknown as BookmarkItem[];
 
-    const userPreferences = await db.select().from(user_preferences).where(eq(user_preferences.user_id, 1));
+    const userPreferences = await db.select().from(user_preferences).limit(1);
 
     return (
         <Page>
@@ -42,6 +43,12 @@ export default async function SettingsPage() {
             </div>
             <SettingsSection title="Theme" description="Change the theme of your application.">
                 <ThemeToggle />
+            </SettingsSection>
+
+            <SettingsSection title="General" description="Show or hide widgets on your dashboard.">
+                <div className="space-y-2 mb-4">
+                    <ShowWidgets userPreferences={userPreferences} />
+                </div>
             </SettingsSection>
 
             <SettingsSection title="Applications">

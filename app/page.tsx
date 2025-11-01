@@ -27,7 +27,9 @@ export default async function Home() {
       <Welcome userName={userData?.[0]?.name.split(" ")[0]} />
       <SearchBar />
 
-      <Widgets/>
+      {userPreferences?.[0]?.show_widgets === 1 && (
+        <Widgets/>
+      )}
 
       <Applications
         fullSizeButtons={userPreferences?.[0]?.application_button_size === "full"}

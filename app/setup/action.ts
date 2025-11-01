@@ -12,15 +12,19 @@ export async function setup(
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
+  const USER_ID = 1;
+
   try {
-    const user_id = await db
+    await db
       .insert(user)
-      .values({ name, email, password })
+      .values({ id: USER_ID, name, email, password })
       .returning({ id: user.id });
 
     await db.insert(user_preferences).values({
-      user_id: user_id[0].id,
+      id: USER_ID,
+      user_id: USER_ID,
     });
+    
   } catch (error) {
     return {
       ok: false,
