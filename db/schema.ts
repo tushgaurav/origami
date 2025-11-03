@@ -57,6 +57,7 @@ export const user_preferences = sqliteTable("user_preferences", {
   id: integer().primaryKey({ autoIncrement: true }),
   user_id: integer().references(() => user.id),
   theme: text().notNull().default("system"),
+  default_search: text().notNull().default("google"),
   application_button_size: text().notNull().default("full"),
   application_show_description: integer().notNull().default(0),
   bookmark_button_size: text().notNull().default("full"),

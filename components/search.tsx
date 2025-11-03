@@ -4,10 +4,11 @@ import { useState } from "react"
 import { SearchIcon, ChevronDown, ChevronRightIcon } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import type { SearchEngine } from "@/types/search-engines"
 
-function SearchBar() {
+function SearchBar({ searchEngine }: { searchEngine: SearchEngine }) {
   const [query, setQuery] = useState("")
-  const [engineKey, setEngineKey] = useState<keyof typeof SEARCH_ENGINES>("google")
+  const [engineKey, setEngineKey] = useState<SearchEngine>(searchEngine)
 
   function changeEngine(newKey: keyof typeof SEARCH_ENGINES) {
     if (!SEARCH_ENGINES[newKey]) return
@@ -70,10 +71,6 @@ const SEARCH_ENGINES = {
   brave: {
     name: "Brave",
     buildUrl: (q: string) => buildQuery("https://search.brave.com/search?q=", q),
-  },
-  wikipedia: {
-    name: "Wikipedia",
-    buildUrl: (q: string) => buildQuery("https://en.wikipedia.org/w/index.php?search=", q),
   },
   youtube: {
     name: "YouTube",

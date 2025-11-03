@@ -17,6 +17,7 @@ import { ApplicationButtonSize } from "./_components/applications/button-size";
 import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import DefaultSearch from "./_components/general/default-search";
 import { ShowWidgets } from "./_components/general/show-widgets";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 
@@ -47,13 +48,16 @@ export default async function SettingsPage() {
             </div>
 
             <SettingsSection title="General" description="Show or hide widgets on your dashboard.">
-                <div className="space-y-2 mb-4">
+                <div className="space-y-6 mb-4">
                     <ShowWidgets userPreferences={userPreferences} />
+                    <DefaultSearch defaultSearch={userPreferences?.[0]?.default_search} />
                 </div>
+
+
             </SettingsSection>
 
             <SettingsSection title="Applications">
-                <div className="space-y-2 mb-4">
+                <div className="space-y-6 mb-4">
                     <ApplicationButtonSize userPreferences={userPreferences} />
                 </div>
                 <div className="flex gap-2 mb-2">

@@ -1,0 +1,1 @@
+export type SearchEngine = "google" | "duckduckgo" | "bing" | "brave" | "youtube";

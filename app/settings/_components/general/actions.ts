@@ -17,3 +17,14 @@ export async function changeShowWidgets(showWidgets: 0 | 1) {
   revalidatePath("/settings")
 }
 
+export async function changeDefaultSearch(defaultSearch: string) {
+  try {
+    await db.update(user_preferences).set({
+      default_search: defaultSearch,
+    }).where(eq(user_preferences.id, 1));
+  } catch (error) {
+    console.error(error)
+  }
+
+  revalidatePath("/settings")
+}
