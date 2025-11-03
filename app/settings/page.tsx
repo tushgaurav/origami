@@ -18,6 +18,7 @@ import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ShowWidgets } from "./_components/general/show-widgets";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 
 export const metadata: Metadata = {
     title: "Origami - Settings",
@@ -34,16 +35,16 @@ export default async function SettingsPage() {
         <Page>
             <div className="flex items-baseline justify-between">
                 <PageHeader heading="Settings" />
-                <Link href="/">
-                    <Button variant="outline">
-                        <ArrowLeftIcon className="size-4" />
-                        <span>Back</span>
-                    </Button>
-                </Link>
+                <div className="flex items-center gap-4">
+                    <AnimatedThemeToggler />
+                    <Link href="/">
+                        <Button variant="outline">
+                            <ArrowLeftIcon className="size-4" />
+                            <span>Back</span>
+                        </Button>
+                    </Link>
+                </div>
             </div>
-            <SettingsSection title="Theme" description="Change the theme of your application.">
-                <ThemeToggle />
-            </SettingsSection>
 
             <SettingsSection title="General" description="Show or hide widgets on your dashboard.">
                 <div className="space-y-2 mb-4">

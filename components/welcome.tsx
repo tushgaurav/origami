@@ -46,16 +46,16 @@ export default function Welcome({ userName }: { userName: string }) {
     }, []);
 
     return (
-        <div className="mb-8 flex items-end justify-between">
+        <div className="mb-4 flex items-end justify-between">
             <div>
-                <h4 className="text-sm text-muted-foreground mb-2">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</h4>
+                <h4 className="text-md text-muted-foreground mb-2">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</h4>
                 <h1 className="text-4xl font-bold">{getDateString()}, {userName}!</h1>
             </div>
 
             <div className="flex flex-col items-end gap-1">
                 <div className="flex items-center gap-1 text-muted-foreground">
                     <Sun className="size-4" />
-                    <span className="text-sm">{weather?.current?.temperature_2m} °C</span>
+                    <span className="text-md">{weather?.current?.temperature_2m} °C</span>
                 </div>
                 <span className="text-2xl font-bold">{time}</span>
             </div>

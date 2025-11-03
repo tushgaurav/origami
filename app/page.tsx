@@ -12,6 +12,7 @@ import db from "@/db";
 import { user, user_preferences } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { redirect, RedirectType } from "next/navigation";
+import { LightRays } from "@/components/ui/light-rays";
 
 export default async function Home() {
   const userData = await db.select().from(user);
@@ -24,11 +25,13 @@ export default async function Home() {
 
   return (
     <Page>
+      {/* <LightRays /> */}
+
       <Welcome userName={userData?.[0]?.name.split(" ")[0]} />
       <SearchBar />
 
       {userPreferences?.[0]?.show_widgets === 1 && (
-        <Widgets/>
+        <Widgets />
       )}
 
       <Applications

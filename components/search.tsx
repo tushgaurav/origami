@@ -23,7 +23,7 @@ function SearchBar() {
   }
 
   return (
-      <form onSubmit={handleSubmit} className="w-full my-20">
+      <form onSubmit={handleSubmit} className="w-full my-10">
         <div className="flex items-stretch gap-2">
           <div className="relative flex-1">
             <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 opacity-60">
