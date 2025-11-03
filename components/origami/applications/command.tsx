@@ -4,8 +4,10 @@ import * as React from "react"
 import {
   Calculator,
   Calendar,
+  CogIcon,
   CreditCard,
   PlusIcon,
+  SearchIcon,
   Settings,
   Smile,
   User,
@@ -72,7 +74,9 @@ export function ApplicationDialog({ applications, className }: ApplicationDialog
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>
+            No results found.
+          </CommandEmpty>
           <CommandGroup heading="Suggestions">
             {applications.map((application) => (
               <CommandItem key={application.id} value={application.title} onSelect={() => {
@@ -85,9 +89,11 @@ export function ApplicationDialog({ applications, className }: ApplicationDialog
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Settings">
-            <CommandItem value="create-application">
-              <PlusIcon className="size-4" />
-              <span>Create Application</span>
+            <CommandItem value="open-settings" onSelect={() => {
+              launchApp("/settings", "_self")
+            }}>
+              <CogIcon className="size-4" />
+              <span>Open Settings</span>
             </CommandItem>
           </CommandGroup>
         </CommandList>

@@ -23,11 +23,11 @@ export default async function Bookmarks() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {data.map((category) => (
-                    <div key={category.id}>
+                    <div key={category.id} className="mt-2">
                         <h2 className="text-lg font-bold mb-4">{category.name}</h2>
                         <div className="flex flex-col gap-2">
                             {category.bookmarks.map((bookmark) => (
-                                <Link href={bookmark.url} target="_blank">
+                                <Link href={bookmark.url} target="_blank" className="hover:text-primary transition-colors">
                                     {bookmark.title}
                                 </Link>
                             ))}
