@@ -21,6 +21,9 @@ import DefaultSearch from "./_components/general/default-search";
 import { ShowWidgets } from "./_components/general/show-widgets";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: "Origami - Settings",
     description: "Settings for Origami",

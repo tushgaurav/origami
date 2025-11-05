@@ -15,6 +15,9 @@ import { redirect, RedirectType } from "next/navigation";
 import { LightRays } from "@/components/ui/light-rays";
 import type { SearchEngine } from "@/types/search-engines";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const userData = await db.select().from(user);
 

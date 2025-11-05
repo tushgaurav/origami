@@ -8,6 +8,9 @@ import db from "@/db";
 import { user } from "@/db/schema";
 import { redirect, RedirectType } from "next/navigation";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Setup your Origami",
   description: "Setup your Origami",

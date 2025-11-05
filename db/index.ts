@@ -10,10 +10,13 @@
 
 // export default sql;
 
-import { drizzle } from 'drizzle-orm/libsql';
+import { drizzle } from 'drizzle-orm/libsql/node';
+
+// Use environment variable with fallback to local path for builds
+const dbPath = process.env.DATABASE_PATH || "file:./origami.db";
 
 const db = drizzle({ connection: {
-  url: "file:./origami.db", 
+  url: dbPath, 
 }});
 
 export default db;

@@ -55,7 +55,11 @@ export default function Welcome({ userName }: { userName: string }) {
             <div className="flex flex-col items-end gap-1">
                 <div className="flex items-center gap-1 text-muted-foreground">
                     <Sun className="size-4" />
-                    <span className="text-md">{weather?.current?.temperature_2m} °C</span>
+                    {weather ? (
+                        <span className="text-md">{weather?.current?.temperature_2m} °C</span>
+                    ) : (
+                        <span className="text-md">-- °C</span>
+                    )}
                 </div>
                 <span className="text-2xl font-bold">{time}</span>
             </div>
