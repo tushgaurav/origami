@@ -1,0 +1,12 @@
+services:
+  origami:
+    image: tushgaurav/origami:latest
+    container_name: origami
+    ports:
+      - "3000:3000"
+    volumes:
+      - origami_data:/data
+    restart: unless-stopped
+
+volumes:
+  origami_data:

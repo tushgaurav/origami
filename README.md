@@ -10,7 +10,46 @@ After years of running a homelab and overlooking the value of a clean landing pa
 
 Reddit Post: [r/homelabindia](https://www.reddit.com/r/homelabindia/comments/1oc82lq/creating_a_homelab_start_page_need_advice/)
 
-### Setup
+### Getting Started
+
+The easiest way to run Origami is using the pre-built image from [Docker Hub](https://hub.docker.com/r/tushgaurav/origami).
+
+#### Docker Compose
+
+Create a `docker-compose.yml` file:
+
+```yaml
+services:
+  origami:
+    image: tushgaurav/origami:latest
+    container_name: origami
+    ports:
+      - "3000:3000"
+    volumes:
+      - origami_data:/data
+    restart: unless-stopped
+
+volumes:
+  origami_data:
+```
+
+Run it:
+```bash
+docker compose up -d
+```
+
+#### Docker CLI
+
+```bash
+docker run -d \
+  --name origami \
+  -p 3000:3000 \
+  -v origami_data:/data \
+  --restart unless-stopped \
+  tushgaurav/origami:latest
+```
+
+### Development
 
 ```bash
 bun install
@@ -34,11 +73,18 @@ bun run build      # Build for production
 bun run start      # Start production server
 ```
 
-### Deploying to Docker
+### Deploying to Docker Hub
 
 ```bash
-docker build -t origami .
-docker run -p 3000:3000 origami
+# 1. Login to Docker Hub
+docker login
 
-du -h -d 1 | sort -rh # List directory sizes
+# 2. Build and tag the image
+docker build -t tushgaurav/origami:latest -t tushgaurav/origami:0.1.0 .
+
+# 3. Push to Docker Hub
+docker push tushgaurav/origami:latest
+docker push tushgaurav/origami:0.1.0
 ```
+
+
