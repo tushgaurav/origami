@@ -37,8 +37,8 @@ export default async function Applications({ fullSizeButtons }: { fullSizeButton
                                 <CardTitle className="flex items-center gap-4">
                                     <SimpleIcon si={application.icon.split('si:')[1]} className="size-10" />
                                     <div className="flex flex-col gap-1 text-foreground">
-                                        <h2 className="text-lg font-medium">{application.title}</h2>
-                                        <Link href={application.url} target="_blank" className="flex items-center text-sm gap-1 text-muted-foreground">
+                                        <h2 className="text-lg font-medium pl-1">{application.title}</h2>
+                                        <Link href={application.url} target="_blank" className="flex items-center text-sm text-muted-foreground">
                                             <ArrowUpRightIcon className="size-5 text-muted-foreground" />
                                             {getLocalUrl(removeTrailingSlash(application.url))}
                                         </Link>
