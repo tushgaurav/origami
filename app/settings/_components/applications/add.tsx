@@ -1,6 +1,6 @@
 "use client"
 
-import { useActionState, useState } from "react"
+import { useActionState, useState, useRef, useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -19,13 +19,34 @@ import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldLegen
 import { Textarea } from "@/components/ui/textarea"
 import { IconSearch } from "./icon-search"
 import { createApplication } from "./actions"
+import { Separator } from "@/components/ui/separator"
 
 export function AddApplicationDialog() {
   const [icon, setIcon] = useState<string>("")
+  const [open, setOpen] = useState(false)
   const [state, formAction, isPending] = useActionState(createApplication, { ok: false })
+  const formRef = useRef<HTMLFormElement>(null)
+  const shouldCloseRef = useRef(true)
+
+  useEffect(() => {
+    if (state.ok) {
+      if (shouldCloseRef.current) {
+        setOpen(false)
+      } else {
+        formRef.current?.reset()
+        setIcon("")
+      }
+    }
+  }, [state])
+
+  useEffect(() => {
+    if (!open) {
+      setIcon("")
+    }
+  }, [open])
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default">
           <PlusIcon className="size-4" />
@@ -38,8 +59,9 @@ export function AddApplicationDialog() {
           <DialogDescription>
             Add a new application to Origami.
           </DialogDescription>
+          <Separator className="my-2" />
         </DialogHeader>
-        <form action={formAction} className="grid gap-4">
+        <form ref={formRef} action={formAction} className="grid gap-4">
           <FieldSet>
             <FieldGroup>
               <Field>
@@ -66,7 +88,19 @@ export function AddApplicationDialog() {
             <DialogClose asChild>
               <Button variant="outline" type="button">Cancel</Button>
             </DialogClose>
-            <Button type="submit" disabled={isPending || !icon}>
+            <Button
+              type="submit"
+              disabled={isPending || !icon}
+              onClick={() => { shouldCloseRef.current = false }}
+              variant="secondary"
+            >
+              Save & Add New
+            </Button>
+            <Button
+              type="submit"
+              disabled={isPending || !icon}
+              onClick={() => { shouldCloseRef.current = true }}
+            >
               {isPending ? "Saving..." : "Save"}
             </Button>
           </DialogFooter>

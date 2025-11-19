@@ -54,9 +54,11 @@ function IconSearch({ value, onChange }: IconSearchProps) {
             onChange={e => setQuery(e.target.value)}
             autoComplete="off"
           />
-          <FieldDescription>
-            Selected: {selectedValid ? selectedSlug : "none"}
-          </FieldDescription>
+          {selectedValid && (
+            <FieldDescription>
+              Selected: {selectedValid ? selectedSlug : "none"}
+            </FieldDescription>
+          )}
         </Field>
 
         <div className="flex flex-wrap gap-2">
